@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'Inter-probleme',
+  selector: 'stk-produit',
   templateUrl: './probleme.component.html',
   styleUrls: ['./probleme.component.css']
 })
@@ -15,5 +15,8 @@ export class ProblemeComponent implements OnInit {
     this.problemeForm = this.fb.group({
        prenom: ['',[Validators.minLength(3)]]
     });
+  }
+
+  save(): void {
   }
 }

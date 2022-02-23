@@ -5,14 +5,29 @@
 	<!-- L'en-tête ici -->
       </div>
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <h6 class="card-title">Veuillez renseigner les zones suivante et soumettre votre demande</h6>
+        <div class="card-text">
+            <form class="form-horizontal"
+            novalidate
+            (ngSubmit)="save()"
+            [formGroup]="problemeForm">
+                <div class="form-group row">          
+                <label for="prenomId" class="col-md-2 col-form-label text-right">Prénom :</label>
+                <div class="col-md-10">
+                  <input class="form-control" 
+                  id="prenomId" 
+                  type="text" 
+                  placeholder="Votre prénom ici (obligatoire)" 
+                  formControlName="prenom"            
+                  [ngClass]="{'is-valid': (problemeForm.get('prenom').touched || 
+                  problemeForm.get('prenom').dirty) &&
+                  problemeForm.get('prenom').valid,
+                  'is-invalid': (problemeForm.get('prenom').touched || 
+                  problemeForm.get('prenom').dirty) &&
+                  !problemeForm.get('prenom').valid}"
+                  />
+          </div>
       </div>
-      <div class="card-footer">
-            <!-- Bouton save ici -->
-            <button class="btn btn-primary" type="submit">
-                  Sauvegarder
-            </button>    
-      </div>
-    </div>
+     </form>
 </div>
+
