@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { VerifierCaracteresValidator } from '../shared/longueur-minimum/longueur-minimum.component';
 
 @Component({
   selector: 'stk-produit',
@@ -13,7 +14,7 @@ export class ProblemeComponent implements OnInit {
 
   ngOnInit() {
     this.problemeForm = this.fb.group({
-       prenom: ['',[Validators.minLength(3)]]
+       prenom: ['', [VerifierCaracteresValidator.longueurMinimum(3), Validators.required]]
     });
   }
 
