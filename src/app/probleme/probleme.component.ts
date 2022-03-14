@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { emailMatcherValidator } from '../shared/email-matcher/email-matcher.component';
 import { VerifierCaracteresValidator } from '../shared/longueur-minimum/longueur-minimum.component';
 import { ITypeProbleme } from './probleme';
 import { ProblemeService } from './probleme.service';
@@ -35,10 +36,11 @@ export class ProblemeComponent implements OnInit {
   save(): void {
   }
 
-  appliquerNotifications(typeProbleme: string): void {
+  appliquerNotifications(notifyVia: string): void {
     const telephoneControl = this.problemeForm.get('telephone');
     const adresseCourrielControl = this.problemeForm.get('courrielGroup.courriel');   
     const confirmerCourrielControl = this.problemeForm.get('courrielGroup.courrielConfirmation');   
+    const courrielGroupControl = this.problemeForm.get('courrielGroup');
 
     telephoneControl.clearValidators();
     telephoneControl.reset();
@@ -52,8 +54,22 @@ export class ProblemeComponent implements OnInit {
     confirmerCourrielControl.reset();    
     confirmerCourrielControl.disable();
 
+    if (notifyVia === 'courriel') {
+      courrielGroupControl.setValidators([Validators.compose([emailMatcherValidator.courrielDifferents()])])
+      adresseCourrielControl.setValidators([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
+      confirmerCourrielControl.setValidators([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
+      adresseCourrielControl.enable();
+      confirmerCourrielControl.enable();
+    } else {
+    
+    if (notifyVia === 'messageTexte') {
+      telephoneControl.setValidators([Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]+')]);
+      telephoneControl.enable();
+    }
+    
     telephoneControl.updateValueAndValidity();   
     adresseCourrielControl.updateValueAndValidity();    
     confirmerCourrielControl.updateValueAndValidity();         
   }
+}
 }
