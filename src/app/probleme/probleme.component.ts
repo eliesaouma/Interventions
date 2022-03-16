@@ -20,17 +20,22 @@ export class ProblemeComponent implements OnInit {
   ngOnInit() {
     this.problemeForm = this.fb.group({
        prenom: ['', [VerifierCaracteresValidator.longueurMinimum(3), Validators.required]],
+       nom: ['', [VerifierCaracteresValidator.longueurMinimum(3), Validators.required]],
        noTypeProbleme: ['', [Validators.required]],
        courrielGroup: this.fb.group({
        courriel: [{value: '', disabled: true}],
        courrielConfirmation: [{value: '', disabled: true}],
        }),
-       telephone: [{value: '', disabled: true}]
+       telephone: [{value: '', disabled: true}],
+       notification:['pasnotification']
     });
 
     this.problemes.obtenirTypesProbleme()
     .subscribe(cat => this.categoriesProblemes = cat,
                error => this.errorMessage = <any>error);  
+
+    this.problemeForm.get('notification').valueChanges
+    .subscribe(value => this.appliquerNotifications(value));
   }
 
   save(): void {
