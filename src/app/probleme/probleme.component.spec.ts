@@ -201,10 +201,10 @@ describe('ProblemeComponent', () => {
       });
 
     it("#29 | Zone TELEPHONE est activée quand notifier par messagerie texte", () =>{
-      component.appliquerNotifications('messageTexte');
-
-      let zone = component.problemeForm.get('telephone');
-      expect(zone.enabled).toBeTrue();
+      component.appliquerNotifications('messageTexte'); 
+ 
+      let zone = component.problemeForm.get('telephone'); 
+      expect(zone.enabled).toBeTrue(); 
       });
 
     it("#30 | Zone ADRESSE COURRIEL est désactivée quand notifier par messagerie texte", () =>{
